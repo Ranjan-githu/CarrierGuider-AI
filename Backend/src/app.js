@@ -11,7 +11,7 @@ app.use(cookieParser())
 //     const cors = require("cors");,
 
 app.use(cors({
-    origin: "https://carrier-guider-ai.vercel.app",
+    origin: "https://carrier-guider-ai-vubp.vercel.app",
     credentials: true
 }));
 //     credentials: true
