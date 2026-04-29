@@ -6,10 +6,16 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
+// app.use(cors({
+//     // origin: "http://localhost:5173",
+//     const cors = require("cors");,
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://carrier-guider-ai.vercel.app",
     credentials: true
-}))
+}));
+//     credentials: true
+// }))
 
 /* require all the routes here */
 const authRouter = require("./routes/auth.routes")
