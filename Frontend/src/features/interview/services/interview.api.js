@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://carrierguider-ai-2.onrender.com";
+
 const api = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: API_URL,
     withCredentials: true,
 })
 
@@ -11,17 +13,22 @@ const api = axios.create({
  */
 export const generateInterviewReport = async ({ jobDescription, selfDescription, resumeFile }) => {
 
+    console.log("interview.api: generateInterviewReport called")
     const formData = new FormData()
     formData.append("jobDescription", jobDescription)
     formData.append("selfDescription", selfDescription)
-    formData.append("resume", resumeFile)
+    if (resumeFile) {
+        formData.append("resume", resumeFile)
+    }
 
+    console.log("interview.api: making request to /api/interview/")
     const response = await api.post("/api/interview/", formData, {
         headers: {
             "Content-Type": "multipart/form-data"
         }
     })
 
+    console.log("interview.api: response received", response.data)
     return response.data
 
 }

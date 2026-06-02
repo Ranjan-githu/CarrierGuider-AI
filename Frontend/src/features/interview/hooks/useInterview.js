@@ -16,18 +16,23 @@ export const useInterview = () => {
     const { loading, setLoading, report, setReport, reports, setReports } = context
 
     const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+        console.log("useInterview: generateReport called with", { jobDescription, selfDescription, resumeFile })
         setLoading(true)
         let response = null
         try {
             response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
-            setReport(response.interviewReport)
+            console.log("useInterview: API response", response)
+            if (response?.interviewReport) {
+                setReport(response.interviewReport)
+                return response.interviewReport
+            }
         } catch (error) {
-            console.log(error)
+            console.error("useInterview: generateReport error", error)
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReport
+        return null
     }
 
     const getReportById = async (interviewId) => {
@@ -35,13 +40,16 @@ export const useInterview = () => {
         let response = null
         try {
             response = await getInterviewReportById(interviewId)
-            setReport(response.interviewReport)
+            if (response?.interviewReport) {
+                setReport(response.interviewReport)
+                return response.interviewReport
+            }
         } catch (error) {
             console.log(error)
         } finally {
             setLoading(false)
         }
-        return response.interviewReport
+        return null
     }
 
     const getReports = async () => {
@@ -49,21 +57,23 @@ export const useInterview = () => {
         let response = null
         try {
             response = await getAllInterviewReports()
-            setReports(response.interviewReports)
+            if (response?.interviewReports) {
+                setReports(response.interviewReports)
+                return response.interviewReports
+            }
         } catch (error) {
             console.log(error)
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReports
+        return []
     }
 
     const getResumePdf = async (interviewReportId) => {
         setLoading(true)
-        let response = null
         try {
-            response = await generateResumePdf({ interviewReportId })
+            const response = await generateResumePdf({ interviewReportId })
             const url = window.URL.createObjectURL(new Blob([ response ], { type: "application/pdf" }))
             const link = document.createElement("a")
             link.href = url
