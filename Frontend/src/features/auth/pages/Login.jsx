@@ -25,7 +25,8 @@ const Login = () => {
     return (
         <main>
             <div className="form-container">
-                <h1>Login</h1>
+                <h1>Welcome Back</h1>
+                <p>Login to your account to continue</p>
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
@@ -41,7 +42,7 @@ const Login = () => {
                     </div>
                     <button className='button primary-button' >Login</button>
                 </form>
-                <p>Don't have an account? <Link to={"/register"} >Register</Link> </p>
+                <div className="link-container">Don't have an account? <Link to={"/register"} >Register</Link></div>
             </div>
         </main>
     )

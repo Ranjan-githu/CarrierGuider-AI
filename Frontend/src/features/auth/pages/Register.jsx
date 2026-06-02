@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { useNavigate, Link } from 'react-router'
+import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
 
 const Register = () => {
@@ -24,8 +25,8 @@ const Register = () => {
     return (
         <main>
             <div className="form-container">
-                <h1>Register</h1>
-
+                <h1>Create Account</h1>
+                <p>Sign up to get started with your interview prep</p>
                 <form onSubmit={handleSubmit}>
 
                     <div className="input-group">
@@ -51,7 +52,7 @@ const Register = () => {
 
                 </form>
 
-                <p>Already have an account? <Link to={"/login"} >Login</Link> </p>
+                <div className="link-container">Already have an account? <Link to={"/login"} >Login</Link></div>
             </div>
         </main>
     )

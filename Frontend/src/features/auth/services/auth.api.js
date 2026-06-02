@@ -70,8 +70,8 @@
 
 import axios from "axios";
 
-// ✅ Render backend URL
-const API_URL = "https://carrierguider-ai-2.onrender.com";
+// ✅ Render backend URL OR local backend
+const API_URL = import.meta.env.VITE_API_URL || "https://carrierguider-ai-2.onrender.com";
 
 const api = axios.create({
     baseURL: API_URL,
@@ -90,6 +90,7 @@ export async function register({ username, email, password }) {
         return response.data;
     } catch (err) {
         console.error("Register Error:", err?.response?.data || err.message);
+        throw err;
     }
 }
 
@@ -104,6 +105,7 @@ export async function login({ email, password }) {
         return response.data;
     } catch (err) {
         console.error("Login Error:", err?.response?.data || err.message);
+        throw err;
     }
 }
 
@@ -114,6 +116,7 @@ export async function logout() {
         return response.data;
     } catch (err) {
         console.error("Logout Error:", err?.response?.data || err.message);
+        throw err;
     }
 }
 
@@ -124,5 +127,6 @@ export async function getMe() {
         return response.data;
     } catch (err) {
         console.error("GetMe Error:", err?.response?.data || err.message);
+        throw err;
     }
 }
